@@ -1,3 +1,11 @@
+ARG BASE_IMAGE
+ARG APP_VERSION
+
+FROM ${BASE_IMAGE}
+
+# Use the APP_VERSION argument
+ENV APP_VERSION=${APP_VERSION}
+
 # Use an official Python runtime as a parent image
 FROM python:3.9-slim
 
