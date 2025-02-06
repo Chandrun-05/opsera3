@@ -1,4 +1,4 @@
-FROM alpine:3.18
+FROM alpine:latest
 
 # Set repository URLs
 RUN echo -e "http://dl-cdn.alpinelinux.org/alpine/v3.18/main\nhttp://dl-cdn.alpinelinux.org/alpine/v3.18/community" > /etc/apk/repositories
