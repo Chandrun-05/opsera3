@@ -7,9 +7,6 @@ WORKDIR /app
 # Copy Maven project files
 COPY pom.xml .
 
-# Copy src directory if it exists
-COPY src/ ./src/ || echo "No src directory found, skipping."
-
 # Build the Maven project
 RUN mvn clean install -DskipTests
 
@@ -28,6 +25,7 @@ ENV SONAR_LOGIN="your-sonar-token"
 
 # Run SonarQube scan
 CMD ["mvn", "sonar:sonar", "-Dsonar.host.url=$SONAR_HOST_URL", "-Dsonar.login=$SONAR_LOGIN"]
+
 
 
 
