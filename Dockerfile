@@ -1,30 +1,30 @@
-# Base image
-FROM maven:3.8.5-openjdk-11-slim as builder
+# # Base image
+# FROM maven:3.8.5-openjdk-11-slim as builder
 
-# Set working directory
-WORKDIR /app
+# # Set working directory
+# WORKDIR /app
 
-# Copy Maven project files
-COPY pom.xml .
+# # Copy Maven project files
+# COPY pom.xml .
 
-# Build the Maven project
-RUN mvn clean install -DskipTests
+# # Build the Maven project
+# RUN mvn clean install -DskipTests
 
-# Stage for SonarQube Scan
-FROM maven:3.8.5-openjdk-11-slim
+# # Stage for SonarQube Scan
+# FROM maven:3.8.5-openjdk-11-slim
 
-# Set working directory
-WORKDIR /app
+# # Set working directory
+# WORKDIR /app
 
-# Copy built project from builder stage
-COPY --from=builder /app .
+# # Copy built project from builder stage
+# COPY --from=builder /app .
 
-# SonarQube parameters
-ENV SONAR_HOST_URL="http://your-sonarqube-server:9000"
-ENV SONAR_LOGIN="your-sonar-token"
+# # SonarQube parameters
+# ENV SONAR_HOST_URL="http://your-sonarqube-server:9000"
+# ENV SONAR_LOGIN="your-sonar-token"
 
-# Run SonarQube scan
-CMD ["mvn", "sonar:sonar", "-Dsonar.host.url=$SONAR_HOST_URL", "-Dsonar.login=$SONAR_LOGIN"]
+# # Run SonarQube scan
+# CMD ["mvn", "sonar:sonar", "-Dsonar.host.url=$SONAR_HOST_URL", "-Dsonar.login=$SONAR_LOGIN"]
 
 
 
@@ -34,25 +34,25 @@ CMD ["mvn", "sonar:sonar", "-Dsonar.host.url=$SONAR_HOST_URL", "-Dsonar.login=$S
 
 
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-# Use an appropriate base image
-# FROM ubuntu:20.04
+Use an appropriate base image
+FROM ubuntu:20.04
 
-# # Add a non-root user
-# RUN adduser --uid 10001 --disabled-password --gecos "" cpqnonrootuser
+# Add a non-root user
+RUN adduser --uid 10001 --disabled-password --gecos "" cpqnonrootuser
 
-# # Change ownership of directories, including /etc (This will cause an error in Jenkins)
-# RUN chown -R cpqnonrootuser /usr && \
-#     chown -R cpqnonrootuser /var && \
-#     chown -R cpqnonrootuser /etc
+# Change ownership of directories, including /etc (This will cause an error in Jenkins)
+RUN chown -R cpqnonrootuser /usr && \
+    chown -R cpqnonrootuser /var && \
+    chown -R cpqnonrootuser /etc
 
-# # Switch to the non-root user
-# USER cpqnonrootuser
+# Switch to the non-root user
+USER cpqnonrootuser
 
-# # Expose any necessary ports (if applicable)
-# # EXPOSE 8080
+# Expose any necessary ports (if applicable)
+# EXPOSE 8080
 
-# # Define the command to run the application
-# # CMD ["nginx", "-g", "daemon off;"]
+# Define the command to run the application
+# CMD ["nginx", "-g", "daemon off;"]
 
 
 # #---------------------------------------------------------------------------------------------------------------------------------------
