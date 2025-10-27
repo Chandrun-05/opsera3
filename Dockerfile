@@ -35,18 +35,18 @@
 
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Use an appropriate base image
-FROM ubuntu:20.04
+# FROM ubuntu:20.04
 
-# Add a non-root user
-RUN adduser --uid 10001 --disabled-password --gecos "" cpqnonrootuser
+# # Add a non-root user
+# RUN adduser --uid 10001 --disabled-password --gecos "" cpqnonrootuser
 
-# Change ownership of directories, including /etc (This will cause an error in Jenkins)
-RUN chown -R cpqnonrootuser /usr && \
-    chown -R cpqnonrootuser /var && \
-    chown -R cpqnonrootuser /etc
+# # Change ownership of directories, including /etc (This will cause an error in Jenkins)
+# RUN chown -R cpqnonrootuser /usr && \
+#     chown -R cpqnonrootuser /var && \
+#     chown -R cpqnonrootuser /etc
 
-# Switch to the non-root user
-USER cpqnonrootuser
+# # Switch to the non-root user
+# USER cpqnonrootuser
 
 # Expose any necessary ports (if applicable)
 # EXPOSE 8080
@@ -56,16 +56,16 @@ USER cpqnonrootuser
 
 
 # #---------------------------------------------------------------------------------------------------------------------------------------
-# FROM alpine:latest
+FROM alpine:latest
 
-# # Set repository URLs
-# RUN echo -e "http://dl-cdn.alpinelinux.org/alpine/v3.18/main\nhttp://dl-cdn.alpinelinux.org/alpine/v3.18/community" > /etc/apk/repositories
+# Set repository URLs
+RUN echo -e "http://dl-cdn.alpinelinux.org/alpine/v3.18/main\nhttp://dl-cdn.alpinelinux.org/alpine/v3.18/community" > /etc/apk/repositories
 
-# # Update and install necessary packages
-# RUN apk update && apk upgrade --no-cache && apk add --no-cache curl wget bash doas unzip libstdc++ openssl
+# Update and install necessary packages
+RUN apk update && apk upgrade --no-cache && apk add --no-cache curl wget bash doas unzip libstdc++ openssl
 
-# # Test script
-# CMD ["sh"]
+# Test script
+CMD ["sh"]
 
 #-------------------------------------------------------------------------------------------------------------------------
 # # ARG BASE_IMAGE
