@@ -62,7 +62,7 @@ FROM alpine:latest
 RUN echo -e "http://dl-cdn.alpinelinux.org/alpine/v3.18/main\nhttp://dl-cdn.alpinelinux.org/alpine/v3.18/community" > /etc/apk/repositories
 
 # Update and install necessary packages
-RUN apk update && apk upgrade --no-cache && apk add --no-cache curl wget bash doas unzip libstdc++ opensslv
+RUN apk update && apk upgrade --no-cache && apk add --no-cache curl wget bash doas unzip libstdc++ openssl
 
 # Test script
 CMD ["sh"]
